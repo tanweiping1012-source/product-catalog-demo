@@ -3,7 +3,7 @@ import './App.css'
 
 type Modal = 'none' | 'report' | 'ad' | 'profile' | 'businessInfo' | 'iab'
 type ChatRole = 'assistant' | 'user'
-type ChatKind = 'text' | 'contact' | 'typing' | 'merchantCard' | 'leadCard'
+type ChatKind = 'text' | 'contact' | 'typing' | 'merchantCard' | 'leadCard' | 'scheduleCard'
 type MerchantCard = {
   name: string
   subtitle: string
@@ -21,6 +21,15 @@ type LeadCard = {
   values: Partial<Record<LeadField, string>>
   intent: 'general' | 'revealPrice'
 }
+type ScheduleCard = {
+  storeName: string
+  address: string
+  timezone: string
+  dateOptions: Array<{ key: string; label: string }>
+  timeOptions: Array<{ key: string; label: string }>
+  selectedDateKey?: string
+  selectedTimeKey?: string
+}
 type ChatMessage = {
   id: string
   role: ChatRole
@@ -28,6 +37,7 @@ type ChatMessage = {
   text?: string
   merchant?: MerchantCard
   lead?: LeadCard
+  schedule?: ScheduleCard
 }
 type ReplyResult = {
   text: string
@@ -102,6 +112,62 @@ function App() {
     )
   }
 
+  const createScheduleCard = (): ScheduleCard => {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+    const lang = (navigator.language || '').toLowerCase()
+    const isZh = lang.startsWith('zh')
+    const now = new Date()
+
+    const formatDate = (d: Date) => {
+      const day = new Intl.DateTimeFormat(isZh ? 'zh-CN' : undefined, {
+        weekday: 'short',
+        month: 'short',
+        day: 'numeric',
+        timeZone: tz,
+      }).format(d)
+      return isZh ? day.replace('周', '周') : day
+    }
+
+    const dateOptions = Array.from({ length: 3 }).map((_, idx) => {
+      const d = new Date(now)
+      d.setDate(d.getDate() + idx + 1)
+      const key = d.toISOString().slice(0, 10)
+      return { key, label: formatDate(d) }
+    })
+
+    const makeTimeLabel = (h: number, m: number) => {
+      const d = new Date(now)
+      d.setHours(h, m, 0, 0)
+      return new Intl.DateTimeFormat(isZh ? 'zh-CN' : undefined, {
+        hour: 'numeric',
+        minute: '2-digit',
+      }).format(d)
+    }
+
+    const timeOptions = [
+      { key: '10:00', label: makeTimeLabel(10, 0) },
+      { key: '14:00', label: makeTimeLabel(14, 0) },
+      { key: '18:00', label: makeTimeLabel(18, 0) },
+    ]
+
+    return {
+      storeName: 'CarMax',
+      address: 'Demo location · United States',
+      timezone: tz,
+      dateOptions,
+      timeOptions,
+    }
+  }
+
+  const updateScheduleCard = (messageId: string, updater: (card: ScheduleCard) => ScheduleCard) => {
+    setChatMessages((prev) =>
+      prev.map((m) => {
+        if (m.id !== messageId || m.kind !== 'scheduleCard' || !m.schedule) return m
+        return { ...m, schedule: updater(m.schedule) }
+      }),
+    )
+  }
+
   const systemItems = useMemo(
     () => [
       { type: 'timestamp' as const, text: '8:00 PM' },
@@ -152,6 +218,13 @@ function App() {
       /warranty|guarantee|return/.test(normalized) || /质保|保修|保固|退换|退換|退车|退車/.test(input)
     const wantsWebsite =
       /website|open.*site|carmax\.com/.test(normalized) || /官网|官網|打开网站|打開網站/.test(input)
+    const wantsStoreAddress =
+      /store address|dealership address|where.*store|where.*dealership|store location|where are you|location/.test(
+        normalized,
+      ) ||
+      /门店地址|門店地址|店铺地址|店鋪地址|地址在哪里|地址在哪|门店在哪|門店在哪|在哪儿|在哪裡|位置|怎么去|怎麼去/.test(
+        input,
+      )
     const wantsMerchantInfo =
       /carmax|dealer|dealership|seller|business|company|store|shop|about you|who are you|contact|address|hours|location/.test(
         normalized,
@@ -175,6 +248,15 @@ function App() {
           ? '我可以打开 carmax.com 的页面给你查看（演示版 WebView）。'
           : 'I can open a carmax.com page in the demo web view.',
         action: () => setModal('iab'),
+      }
+    }
+
+    if (wantsStoreAddress) {
+      return {
+        text: zh
+          ? '门店地址：Demo location · United States。你也可以直接在这里预约一个试驾时间（演示）。'
+          : 'Store address: Demo location · United States. You can also book a test drive time here (demo).',
+        extras: [{ role: 'assistant', kind: 'scheduleCard', schedule: createScheduleCard() }],
       }
     }
 
@@ -737,6 +819,124 @@ function App() {
                             onClick={onSubmit}
                           >
                             Submit
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
+                if (m.kind === 'scheduleCard' && m.role === 'assistant' && m.schedule) {
+                  const lang = (navigator.language || '').toLowerCase()
+                  const zh = lang.startsWith('zh')
+                  const card = m.schedule
+                  const canConfirm = Boolean(card.selectedDateKey && card.selectedTimeKey)
+
+                  const onConfirm = () => {
+                    if (!card.selectedDateKey || !card.selectedTimeKey) return
+                    const id = `${Date.now()}-${buildId.current++}`
+                    const summary = zh
+                      ? `试驾预约：${card.selectedDateKey} · ${card.selectedTimeKey}`
+                      : `Test drive: ${card.selectedDateKey} · ${card.selectedTimeKey}`
+                    setChatMessages((prev) => [...prev, { id, role: 'user', kind: 'text', text: summary }])
+
+                    const typingId = `${Date.now()}-${buildId.current++}`
+                    setChatMessages((prev) => [...prev, { id: typingId, role: 'assistant', kind: 'typing' }])
+                    window.setTimeout(() => {
+                      setChatMessages((prev) => {
+                        const withoutTyping = prev.filter((x) => x.id !== typingId)
+                        const respId = `${Date.now()}-${buildId.current++}`
+                        const text = zh
+                          ? '已为你提交试驾预约（演示）。如需修改时间，重新选择后再次提交即可。'
+                          : 'Your test drive request has been submitted (demo). To change it, pick another slot and submit again.'
+                        return [...withoutTyping, { id: respId, role: 'assistant', kind: 'text', text }]
+                      })
+                    }, 550)
+                  }
+
+                  return (
+                    <div key={m.id} className="messageRow left">
+                      <div className="scheduleCard" role="group" aria-label="Test drive scheduling card">
+                        <div className="scheduleTitle">
+                          {zh ? '预约试驾' : 'Schedule a test drive'}
+                        </div>
+                        <div className="scheduleStore">
+                          <span className="scheduleStoreName">{card.storeName}</span>
+                          <span className="scheduleStoreTz">{card.timezone}</span>
+                        </div>
+                        <div className="scheduleAddress">{card.address}</div>
+
+                        <div className="scheduleSection">
+                          <div className="scheduleLabel">{zh ? '日期' : 'Date'}</div>
+                          <div className="scheduleOptions">
+                            {card.dateOptions.map((o) => (
+                              <button
+                                key={o.key}
+                                type="button"
+                                className={
+                                  o.key === card.selectedDateKey
+                                    ? 'scheduleOption selected'
+                                    : 'scheduleOption'
+                                }
+                                onClick={() =>
+                                  updateScheduleCard(m.id, (prev) => ({
+                                    ...prev,
+                                    selectedDateKey: o.key,
+                                  }))
+                                }
+                              >
+                                {o.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="scheduleSection">
+                          <div className="scheduleLabel">{zh ? '时间' : 'Time'}</div>
+                          <div className="scheduleOptions">
+                            {card.timeOptions.map((o) => (
+                              <button
+                                key={o.key}
+                                type="button"
+                                className={
+                                  o.key === card.selectedTimeKey
+                                    ? 'scheduleOption selected'
+                                    : 'scheduleOption'
+                                }
+                                onClick={() =>
+                                  updateScheduleCard(m.id, (prev) => ({
+                                    ...prev,
+                                    selectedTimeKey: o.key,
+                                  }))
+                                }
+                              >
+                                {o.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="scheduleActions">
+                          <button
+                            className="scheduleButton secondary"
+                            type="button"
+                            onClick={() =>
+                              updateScheduleCard(m.id, (prev) => ({
+                                ...prev,
+                                selectedDateKey: undefined,
+                                selectedTimeKey: undefined,
+                              }))
+                            }
+                          >
+                            {zh ? '清除' : 'Clear'}
+                          </button>
+                          <button
+                            className="scheduleButton primary"
+                            type="button"
+                            disabled={!canConfirm}
+                            onClick={onConfirm}
+                          >
+                            {zh ? '提交预约' : 'Confirm'}
                           </button>
                         </div>
                       </div>
