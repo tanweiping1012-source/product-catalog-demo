@@ -15,6 +15,11 @@ function App() {
   const [isMoreOpen, setIsMoreOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
+  const catalogPrice = useMemo(() => {
+    if (!hasSharedContact) return null
+    return { integer: '40,998', decimal: '.99' }
+  }, [hasSharedContact])
+
   const systemItems = useMemo(
     () => [
       { type: 'timestamp' as const, text: '8:00 PM' },
@@ -250,9 +255,8 @@ function App() {
                   </div>
                   <div className="productPrice" aria-label="Price">
                     <span className="productCurrency">$</span>
-                    <span className="productNum">
-                      {hasSharedContact ? '56,999' : '*****'}
-                    </span>
+                    <span className="productNum">{catalogPrice ? catalogPrice.integer : '*****'}</span>
+                    {catalogPrice && <span className="productDecimal">{catalogPrice.decimal}</span>}
                   </div>
                 </div>
               </button>
@@ -262,7 +266,10 @@ function App() {
           {sentMessages.length > 0 && (
             <div className="sentStack" aria-label="Sent messages">
               {sentMessages.map((m, idx) => (
-                <div key={`${idx}-${m}`} className="sentBubble">
+                <div
+                  key={`${idx}-${m}`}
+                  className={m.startsWith('+') ? 'sentBubble sentContactBubble' : 'sentBubble'}
+                >
                   {m}
                 </div>
               ))}
