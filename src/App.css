@@ -398,6 +398,106 @@
   line-height: 19px;
 }
 
+.merchantCard {
+  width: 290px;
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.merchantHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.merchantLogo {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+}
+
+.merchantHeaderText {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.merchantName {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.merchantSubtitle {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.merchantDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.merchantDetailRow {
+  display: flex;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.merchantDetailLabel {
+  width: 56px;
+  flex: 0 0 auto;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.merchantDetailValue {
+  min-width: 0;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.merchantActions {
+  display: flex;
+  gap: 8px;
+}
+
+.merchantAction {
+  flex: 1;
+  height: 34px;
+  border-radius: 10px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.86);
+  font-size: 13px;
+  line-height: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.merchantAction:active {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.merchantAction.primary {
+  background: #00a2c9;
+  color: #fff;
+}
+
+.merchantAction.primary:active {
+  background: #008fb1;
+}
+
 .typingBubble {
   padding: 10px 12px;
   width: 64px;

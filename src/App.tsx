@@ -3,12 +3,27 @@ import './App.css'
 
 type Modal = 'none' | 'report' | 'ad' | 'profile' | 'businessInfo' | 'iab'
 type ChatRole = 'assistant' | 'user'
-type ChatKind = 'text' | 'contact' | 'typing'
+type ChatKind = 'text' | 'contact' | 'typing' | 'merchantCard'
+type MerchantCard = {
+  name: string
+  subtitle: string
+  websiteLabel: string
+  websiteUrl: string
+  phone: string
+  hours: string
+  address: string
+}
 type ChatMessage = {
   id: string
   role: ChatRole
   kind: ChatKind
   text?: string
+  merchant?: MerchantCard
+}
+type ReplyResult = {
+  text: string
+  action?: () => void
+  extras?: Array<Omit<ChatMessage, 'id'>>
 }
 
 function App() {
@@ -58,7 +73,7 @@ function App() {
 
   const isChinese = (s: string) => /[\u4e00-\u9fff]/.test(s)
 
-  const reply = (input: string) => {
+  const reply = (input: string): ReplyResult => {
     const normalized = input.trim().toLowerCase()
 
     const wantsPrice =
@@ -77,6 +92,13 @@ function App() {
     const wantsWarranty =
       /warranty|guarantee|return/.test(normalized) || /质保|保修|保固|退换|退換|退车|退車/.test(input)
     const wantsWebsite = /website|open.*site|carmax\.com/.test(normalized) || /官网|官網|打开网站|打開網站/.test(input)
+    const wantsMerchantInfo =
+      /carmax|dealer|dealership|seller|business|company|store|shop|about you|who are you|contact|address|hours|location/.test(
+        normalized,
+      ) ||
+      /商家|店铺|店鋪|门店|門店|车商|車商|公司|关于你|你是谁|你是誰|联系方式|聯繫方式|电话|電話|地址|营业时间|營業時間|位置/.test(
+        input,
+      )
 
     const zh = isChinese(input)
 
@@ -86,6 +108,25 @@ function App() {
           ? '我可以打开 carmax.com 的页面给你查看（演示版 WebView）。'
           : 'I can open a carmax.com page in the demo web view.',
         action: () => setModal('iab'),
+      }
+    }
+
+    if (wantsMerchantInfo) {
+      const card: MerchantCard = {
+        name: 'CarMax',
+        subtitle: 'Business chat',
+        websiteLabel: 'carmax.com',
+        websiteUrl: 'https://www.carmax.com/',
+        phone: '+1 (800) 519-1511',
+        hours: 'Mon–Sun · 10:00 AM–9:00 PM',
+        address: 'Demo location · United States',
+      }
+
+      return {
+        text: zh
+          ? '当然可以。这里是商家信息卡（演示版），你也可以点击打开官网页面。'
+          : 'Sure — here’s the merchant info card (demo). You can also open the website.',
+        extras: [{ role: 'assistant', kind: 'merchantCard', merchant: card }],
       }
     }
 
@@ -191,7 +232,16 @@ function App() {
       setChatMessages((prev) => {
         const withoutTyping = prev.filter((m) => m.id !== typingId)
         const respId = `${Date.now()}-${buildId.current++}`
-        return [...withoutTyping, { id: respId, role: 'assistant', kind: 'text', text: response.text }]
+        const base: ChatMessage[] = [
+          ...withoutTyping,
+          { id: respId, role: 'assistant', kind: 'text', text: response.text },
+        ]
+        if (!response.extras || response.extras.length === 0) return base
+        const extraWithIds: ChatMessage[] = response.extras.map((e) => ({
+          id: `${Date.now()}-${buildId.current++}`,
+          ...e,
+        }))
+        return [...base, ...extraWithIds]
       })
       if (response.action) response.action()
     }, 550)
@@ -425,6 +475,52 @@ function App() {
             <div className="chatStack" aria-label="Chat messages">
               {chatMessages.map((m) => {
                 const isUser = m.role === 'user'
+                if (m.kind === 'merchantCard' && m.role === 'assistant' && m.merchant) {
+                  return (
+                    <div key={m.id} className="messageRow left">
+                      <div className="merchantCard" role="group" aria-label="Merchant info card">
+                        <div className="merchantHeader">
+                          <img className="merchantLogo" src={figmaAsset('avatar.png')} alt="" />
+                          <div className="merchantHeaderText">
+                            <div className="merchantName">{m.merchant.name}</div>
+                            <div className="merchantSubtitle">{m.merchant.subtitle}</div>
+                          </div>
+                        </div>
+                        <div className="merchantDetails">
+                          <div className="merchantDetailRow">
+                            <span className="merchantDetailLabel">Hours</span>
+                            <span className="merchantDetailValue">{m.merchant.hours}</span>
+                          </div>
+                          <div className="merchantDetailRow">
+                            <span className="merchantDetailLabel">Phone</span>
+                            <span className="merchantDetailValue">{m.merchant.phone}</span>
+                          </div>
+                          <div className="merchantDetailRow">
+                            <span className="merchantDetailLabel">Address</span>
+                            <span className="merchantDetailValue">{m.merchant.address}</span>
+                          </div>
+                        </div>
+                        <div className="merchantActions">
+                          <button
+                            className="merchantAction"
+                            onClick={() => setModal('businessInfo')}
+                            type="button"
+                          >
+                            Business info
+                          </button>
+                          <button
+                            className="merchantAction primary"
+                            onClick={() => setModal('iab')}
+                            type="button"
+                          >
+                            Open website
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
                 const bubbleClass =
                   m.kind === 'typing'
                     ? 'assistantBubble typingBubble'
