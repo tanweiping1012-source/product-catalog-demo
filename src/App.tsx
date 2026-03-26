@@ -240,11 +240,13 @@ function App() {
                   alt=""
                 />
                 <div className="productMeta">
-                  <div className="productTitle">Porsche Macan S</div>
-                  <div className="productDesc">
-                    Premium Package 4WD/AWD Turbo Charged Engine Leather Seats BOSE Sound System
-                    Satellite Radio Ready Parking Sensors Rear View Camera Panoramic Sunroof
-                    Navigation System Tow Hitch Front Seat Heater
+                  <div className="productTextStack">
+                    <div className="productTitle">Porsche Macan S</div>
+                    <div className="productDesc">
+                      Premium Package 4WD/AWD Turbo Charged Engine Leather Seats BOSE Sound System
+                      Satellite Radio Ready Parking Sensors Rear View Camera Panoramic Sunroof
+                      Navigation System Tow Hitch Front Seat Heater
+                    </div>
                   </div>
                   <div className="productPrice" aria-label="Price">
                     <span className="productCurrency">$</span>
