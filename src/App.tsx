@@ -211,7 +211,8 @@ function App() {
     const wantsFinancing =
       /finance|loan|apr|monthly/.test(normalized) || /分期|贷款|貸款|月供|首付|利率/.test(input)
     const wantsTradeIn = /trade ?in/.test(normalized) || /置换|置換|旧车|舊車/.test(input)
-    const wantsTestDrive = /test drive/.test(normalized) || /试驾|試駕/.test(input)
+    const wantsTestDrive =
+      /test\s*drive|testdrive|drive\s*test/.test(normalized) || /试驾|試駕/.test(input)
     const wantsDelivery =
       /delivery|ship|shipping|pickup/.test(normalized) || /交付|送车|送車|配送|自提/.test(input)
     const wantsWarranty =
@@ -362,8 +363,9 @@ function App() {
     if (wantsTestDrive) {
       return {
         text: zh
-          ? '可以安排试驾。你方便的城市/时间段是？我会给你几个可选档期（演示）。'
-          : 'We can schedule a test drive. What city and time window works for you? I’ll propose a few slots (demo).',
+          ? '可以安排试驾。你可以直接在下方选择日期和时间提交预约（演示）。'
+          : 'We can schedule a test drive. Pick a date and time below to submit (demo).',
+        extras: [{ role: 'assistant', kind: 'scheduleCard', schedule: createScheduleCard() }],
       }
     }
 
