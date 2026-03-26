@@ -3,7 +3,7 @@ import './App.css'
 
 type Modal = 'none' | 'report' | 'ad' | 'profile' | 'businessInfo' | 'iab'
 type ChatRole = 'assistant' | 'user'
-type ChatKind = 'text' | 'contact' | 'typing' | 'merchantCard'
+type ChatKind = 'text' | 'contact' | 'typing' | 'merchantCard' | 'leadCard'
 type MerchantCard = {
   name: string
   subtitle: string
@@ -13,12 +13,21 @@ type MerchantCard = {
   hours: string
   address: string
 }
+type LeadRegion = 'APAC' | 'China' | 'NAMER' | 'METAP' | 'LATAM' | 'EasternEurope' | 'EuropeOthers'
+type LeadField = 'phone' | 'email' | 'name' | 'location'
+type LeadCard = {
+  region: LeadRegion
+  required: LeadField[]
+  values: Partial<Record<LeadField, string>>
+  intent: 'general' | 'revealPrice'
+}
 type ChatMessage = {
   id: string
   role: ChatRole
   kind: ChatKind
   text?: string
   merchant?: MerchantCard
+  lead?: LeadCard
 }
 type ReplyResult = {
   text: string
@@ -44,6 +53,54 @@ function App() {
   }, [hasSharedContact])
 
   const buildId = useRef(0)
+
+  const leadRequiredFieldsByRegion: Record<LeadRegion, LeadField[]> = useMemo(
+    () => ({
+      APAC: ['phone'],
+      China: ['phone'],
+      NAMER: ['phone', 'email'],
+      METAP: ['phone', 'email'],
+      LATAM: ['phone', 'email'],
+      EasternEurope: ['phone', 'email'],
+      EuropeOthers: ['phone', 'email', 'name'],
+    }),
+    [],
+  )
+
+  const defaultLeadRegion = (): LeadRegion => {
+    const lang = (navigator.language || '').toLowerCase()
+    if (lang.startsWith('zh')) return 'China'
+
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''
+    if (tz.startsWith('Europe/')) {
+      if (/kyiv|kiev|warsaw|prague|bucharest|sofia|budapest|vilnius|riga|tallinn/i.test(tz)) {
+        return 'EasternEurope'
+      }
+      return 'EuropeOthers'
+    }
+    if (tz.startsWith('America/')) return 'NAMER'
+    if (tz.startsWith('Asia/')) return 'APAC'
+    return 'NAMER'
+  }
+
+  const createLeadCard = (intent: LeadCard['intent']): LeadCard => {
+    const region = defaultLeadRegion()
+    return {
+      region,
+      required: leadRequiredFieldsByRegion[region],
+      values: {},
+      intent,
+    }
+  }
+
+  const updateLeadCard = (messageId: string, updater: (lead: LeadCard) => LeadCard) => {
+    setChatMessages((prev) =>
+      prev.map((m) => {
+        if (m.id !== messageId || m.kind !== 'leadCard' || !m.lead) return m
+        return { ...m, lead: updater(m.lead) }
+      }),
+    )
+  }
 
   const systemItems = useMemo(
     () => [
@@ -93,7 +150,8 @@ function App() {
       /delivery|ship|shipping|pickup/.test(normalized) || /交付|送车|送車|配送|自提/.test(input)
     const wantsWarranty =
       /warranty|guarantee|return/.test(normalized) || /质保|保修|保固|退换|退換|退车|退車/.test(input)
-    const wantsWebsite = /website|open.*site|carmax\.com/.test(normalized) || /官网|官網|打开网站|打開網站/.test(input)
+    const wantsWebsite =
+      /website|open.*site|carmax\.com/.test(normalized) || /官网|官網|打开网站|打開網站/.test(input)
     const wantsMerchantInfo =
       /carmax|dealer|dealership|seller|business|company|store|shop|about you|who are you|contact|address|hours|location/.test(
         normalized,
@@ -103,6 +161,11 @@ function App() {
       ) ||
       normalizedNoSpace.includes('carmax') ||
       /营业时间|營業時間|联系方式|聯繫方式|门店|門店|店铺|店鋪|地址|电话|電話/.test(inputNoSpace)
+    const wantsLeadCapture =
+      /lead|contact info|reach you|call me|email me|quote|get quote|booking|book/.test(normalized) ||
+      /留资|留資|留信息|留資料|联系方式|聯繫方式|报价|報價|获取报价|獲取報價|预约|預約|联系我|聯繫我/.test(
+        input,
+      )
 
     const zh = isChinese(input)
 
@@ -134,12 +197,22 @@ function App() {
       }
     }
 
+    if (wantsLeadCapture) {
+      return {
+        text: zh
+          ? '为了更好地服务你，请填写留资信息（演示版）。我会根据地区组合收集字段。'
+          : 'To better help you, please share your contact details (demo). Fields vary by region.',
+        extras: [{ role: 'assistant', kind: 'leadCard', lead: createLeadCard('general') }],
+      }
+    }
+
     if (wantsPrice) {
       if (!hasSharedContact) {
         return {
           text: zh
-            ? '为了展示价格，请先发送你的联系方式（点击下方 +19876543210）。发送后我就能显示车辆价格。'
-            : 'To show the price, please share your contact (tap +19876543210 below). After that, I can reveal the price.',
+            ? '为了展示价格，请先留资（演示版）。我会根据地区组合收集字段，提交后我会展示价格。'
+            : 'To reveal the price, please share your contact details (demo). After you submit, I can show the price.',
+          extras: [{ role: 'assistant', kind: 'leadCard', lead: createLeadCard('revealPrice') }],
         }
       }
 
@@ -518,6 +591,152 @@ function App() {
                             type="button"
                           >
                             Open website
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+
+                if (m.kind === 'leadCard' && m.role === 'assistant' && m.lead) {
+                  const required = new Set(m.lead.required)
+                  const zh = (navigator.language || '').toLowerCase().startsWith('zh')
+                  const regionLabel =
+                    m.lead.region === 'EuropeOthers'
+                      ? 'Europe (Others)'
+                      : m.lead.region === 'EasternEurope'
+                        ? 'Eastern Europe'
+                        : m.lead.region
+
+                  const fieldLabel = (f: LeadField) => {
+                    if (!zh) {
+                      if (f === 'phone') return 'Phone number'
+                      if (f === 'email') return 'Email address'
+                      if (f === 'name') return 'Full name'
+                      return 'Location / city'
+                    }
+                    if (f === 'phone') return '手机号'
+                    if (f === 'email') return '邮箱'
+                    if (f === 'name') return '姓名'
+                    return '城市/地区'
+                  }
+
+                  const fieldPlaceholder = (f: LeadField) => {
+                    if (!zh) {
+                      if (f === 'phone') return '+1 555 000 0000'
+                      if (f === 'email') return 'name@example.com'
+                      if (f === 'name') return 'Your name'
+                      return 'City'
+                    }
+                    if (f === 'phone') return '例如：+86 13800000000'
+                    if (f === 'email') return '例如：name@example.com'
+                    if (f === 'name') return '例如：张三'
+                    return '例如：上海'
+                  }
+
+                  const fields: LeadField[] = ['phone', 'email', 'name', 'location']
+                  const canSubmit = fields
+                    .filter((f) => required.has(f))
+                    .every((f) => (m.lead?.values[f] || '').trim().length > 0)
+
+                  const onSubmit = () => {
+                    if (!m.lead) return
+                    if (!canSubmit) return
+
+                    const id = `${Date.now()}-${buildId.current++}`
+                    const parts: string[] = []
+                    if (m.lead.values.phone) parts.push(String(m.lead.values.phone))
+                    if (m.lead.values.email) parts.push(String(m.lead.values.email))
+                    if (m.lead.values.name) parts.push(String(m.lead.values.name))
+                    if (m.lead.values.location) parts.push(String(m.lead.values.location))
+                    setChatMessages((prev) => [...prev, { id, role: 'user', kind: 'text', text: parts.join(' · ') }])
+                    setHasSharedContact(true)
+                    setIsContactPanelVisible(false)
+
+                    const typingId = `${Date.now()}-${buildId.current++}`
+                    setChatMessages((prev) => [...prev, { id: typingId, role: 'assistant', kind: 'typing' }])
+                    window.setTimeout(() => {
+                      setChatMessages((prev) => {
+                        const withoutTyping = prev.filter((x) => x.id !== typingId)
+                        const respId = `${Date.now()}-${buildId.current++}`
+                        const text =
+                          m.lead?.intent === 'revealPrice'
+                            ? 'Thanks! The price is $40,998.99. Would you like to schedule a test drive?'
+                            : 'Thanks! We’ve saved your details. What would you like to do next (price, test drive, financing)?'
+                        return [...withoutTyping, { id: respId, role: 'assistant', kind: 'text', text }]
+                      })
+                    }, 550)
+                  }
+
+                  return (
+                    <div key={m.id} className="messageRow left">
+                      <div className="leadCard" role="group" aria-label="Lead capture card">
+                        <div className="leadTitle">Contact information to collect</div>
+                        <div className="leadMeta">
+                          <span className="leadMetaLabel">Region</span>
+                          <select
+                            className="leadSelect"
+                            value={m.lead.region}
+                            onChange={(e) => {
+                              const region = e.target.value as LeadRegion
+                              updateLeadCard(m.id, (lead) => ({
+                                ...lead,
+                                region,
+                                required: leadRequiredFieldsByRegion[region],
+                              }))
+                            }}
+                          >
+                            <option value="APAC">APAC</option>
+                            <option value="China">China</option>
+                            <option value="NAMER">NAMER</option>
+                            <option value="METAP">METAP</option>
+                            <option value="LATAM">LATAM</option>
+                            <option value="EasternEurope">Eastern Europe</option>
+                            <option value="EuropeOthers">Europe, Others</option>
+                          </select>
+                          <span className="leadRegionHint">{regionLabel}</span>
+                        </div>
+
+                        <div className="leadFields">
+                          {fields.map((f) => (
+                            <label key={f} className="leadField">
+                              <div className="leadFieldLabel">
+                                <span>{fieldLabel(f)}</span>
+                                <span className={required.has(f) ? 'leadTag req' : 'leadTag opt'}>
+                                  {required.has(f) ? 'Required' : 'Optional'}
+                                </span>
+                              </div>
+                              <input
+                                className="leadInput"
+                                value={m.lead?.values[f] ?? ''}
+                                placeholder={fieldPlaceholder(f)}
+                                onChange={(e) => {
+                                  const v = e.target.value
+                                  updateLeadCard(m.id, (lead) => ({
+                                    ...lead,
+                                    values: { ...lead.values, [f]: v },
+                                  }))
+                                }}
+                              />
+                            </label>
+                          ))}
+                        </div>
+
+                        <div className="leadActions">
+                          <button
+                            className="leadButton secondary"
+                            type="button"
+                            onClick={() => updateLeadCard(m.id, (lead) => ({ ...lead, values: {} }))}
+                          >
+                            Clear
+                          </button>
+                          <button
+                            className="leadButton primary"
+                            type="button"
+                            disabled={!canSubmit}
+                            onClick={onSubmit}
+                          >
+                            Submit
                           </button>
                         </div>
                       </div>

@@ -498,6 +498,139 @@
   background: #008fb1;
 }
 
+.leadCard {
+  width: 290px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.leadTitle {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.leadMeta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.leadMetaLabel {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.leadSelect {
+  height: 30px;
+  border-radius: 10px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.86);
+  padding: 0 10px;
+  font-size: 12px;
+}
+
+.leadRegionHint {
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.leadFields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.leadField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.leadFieldLabel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.leadTag {
+  height: 18px;
+  padding: 0 8px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+}
+
+.leadTag.req {
+  background: rgba(254, 44, 85, 0.12);
+  color: #e10543;
+}
+
+.leadTag.opt {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.leadInput {
+  height: 36px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0 12px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.86);
+  outline: none;
+}
+
+.leadInput::placeholder {
+  color: rgba(0, 0, 0, 0.34);
+}
+
+.leadActions {
+  display: flex;
+  gap: 8px;
+}
+
+.leadButton {
+  flex: 1;
+  height: 36px;
+  border-radius: 12px;
+  border: 0;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.leadButton.secondary {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.leadButton.primary {
+  background: #00a2c9;
+  color: #fff;
+}
+
+.leadButton:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
 .typingBubble {
   padding: 10px 12px;
   width: 64px;
@@ -723,21 +856,17 @@
 
 .sentBubble {
   max-width: 280px;
-  padding: 10px 12px;
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
-  color: rgba(0, 0, 0, 0.86);
+  padding: 12px 16px;
+  border-radius: 22px 22px 6px 22px;
+  background: #00a2c9;
+  box-shadow: none;
+  color: #ffffff;
   font-size: 15px;
   line-height: 19px;
 }
 
 .sentContactBubble {
   background: #00a2c9;
-  color: #ffffff;
-  box-shadow: none;
-  padding: 12px 16px;
-  border-radius: 22px 22px 6px 22px;
 }
 
 .composer {
