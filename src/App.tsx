@@ -613,38 +613,43 @@ function App() {
           </div>
 
           <div className="receivedStack" aria-label="Received messages">
-            <div className="receivedBubble">
-              <div className="receivedText">
-                Thanks for reaching out! I'd love to tell you more on how we might be able to
-                collaborate. Please share your contact information.
-              </div>
-              <button
-                className="productCard"
-                type="button"
-                aria-label="Open product catalog"
-                onClick={() => setModal('iab')}
-              >
-                <img
-                  className="productThumb"
-                  src={figmaAsset('product-thumb-1.png')}
-                  alt=""
-                />
-                <div className="productMeta">
-                  <div className="productTextStack">
-                    <div className="productTitle">Porsche Macan S</div>
-                    <div className="productDesc">
-                      Premium Package 4WD/AWD Turbo Charged Engine Leather Seats BOSE Sound System
-                      Satellite Radio Ready Parking Sensors Rear View Camera Panoramic Sunroof
-                      Navigation System Tow Hitch Front Seat Heater
+            <div className="messageRow left">
+              <img className="chatAvatar" src={figmaAsset('avatar.png')} alt="" />
+              <div className="receivedBubble">
+                <div className="receivedText">
+                  Thanks for reaching out! I'd love to tell you more on how we might be able to
+                  collaborate. Please share your contact information.
+                </div>
+                <button
+                  className="productCard"
+                  type="button"
+                  aria-label="Open product catalog"
+                  onClick={() => setModal('iab')}
+                >
+                  <img
+                    className="productThumb"
+                    src={figmaAsset('product-thumb-1.png')}
+                    alt=""
+                  />
+                  <div className="productMeta">
+                    <div className="productTextStack">
+                      <div className="productTitle">Porsche Macan S</div>
+                      <div className="productDesc">
+                        Premium Package 4WD/AWD Turbo Charged Engine Leather Seats BOSE Sound System
+                        Satellite Radio Ready Parking Sensors Rear View Camera Panoramic Sunroof
+                        Navigation System Tow Hitch Front Seat Heater
+                      </div>
+                    </div>
+                    <div className="productPrice" aria-label="Price">
+                      <span className="productCurrency">$</span>
+                      <span className="productNum">
+                        {catalogPrice ? catalogPrice.integer : '*****'}
+                      </span>
+                      {catalogPrice && <span className="productDecimal">{catalogPrice.decimal}</span>}
                     </div>
                   </div>
-                  <div className="productPrice" aria-label="Price">
-                    <span className="productCurrency">$</span>
-                    <span className="productNum">{catalogPrice ? catalogPrice.integer : '*****'}</span>
-                    {catalogPrice && <span className="productDecimal">{catalogPrice.decimal}</span>}
-                  </div>
-                </div>
-              </button>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -988,7 +993,6 @@ function App() {
                         m.text
                       )}
                     </div>
-                    {isUser && <div className="userAvatar" aria-hidden="true">U</div>}
                   </div>
                 )
               })}
