@@ -52,12 +52,13 @@ function App() {
   const [draft, setDraft] = useState('')
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([])
   const [hasSharedContact, setHasSharedContact] = useState(false)
-  const [isContactPanelVisible, setIsContactPanelVisible] = useState(true)
+  const [hasDismissedContactPanel, setHasDismissedContactPanel] = useState(false)
   const [modal, setModal] = useState<Modal>('none')
   const [isMoreOpen, setIsMoreOpen] = useState(false)
   const [iabIsFavorite, setIabIsFavorite] = useState(false)
   const [iabActiveChip, setIabActiveChip] = useState<string>('Porsche Macan')
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
+  const isContactPanelVisible = !hasSharedContact && !hasDismissedContactPanel
 
   const catalogPrice = useMemo(() => {
     if (!hasSharedContact) return null
@@ -429,7 +430,6 @@ function App() {
     const id = `${Date.now()}-${buildId.current++}`
     setChatMessages((prev) => [...prev, { id, role: 'user', kind: 'contact', text: contact }])
     setHasSharedContact(true)
-    setIsContactPanelVisible(false)
 
     const typingId = `${Date.now()}-${buildId.current++}`
     setChatMessages((prev) => [...prev, { id: typingId, role: 'assistant', kind: 'typing' }])
@@ -757,7 +757,6 @@ function App() {
                     if (m.lead.values.location) parts.push(String(m.lead.values.location))
                     setChatMessages((prev) => [...prev, { id, role: 'user', kind: 'text', text: parts.join(' · ') }])
                     setHasSharedContact(true)
-                    setIsContactPanelVisible(false)
 
                     const typingId = `${Date.now()}-${buildId.current++}`
                     setChatMessages((prev) => [...prev, { id: typingId, role: 'assistant', kind: 'typing' }])
@@ -1011,7 +1010,7 @@ function App() {
                 <button
                   className="contactClose"
                   aria-label="Dismiss"
-                  onClick={() => setIsContactPanelVisible(false)}
+                  onClick={() => setHasDismissedContactPanel(true)}
                 >
                   <img src={figmaAsset('icon-x-mark.svg')} alt="" />
                 </button>
