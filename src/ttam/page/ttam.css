@@ -1,0 +1,899 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #dbdbdb;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+    system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.ttamRoot {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.ttamShell {
+  width: 1320px;
+  max-width: 100%;
+  background: #f8f8f8;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.ttamTopBar {
+  height: 54px;
+  background: #0f0f0f;
+  color: rgba(255, 255, 255, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+}
+
+.ttamTopLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ttamBrand {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 700;
+}
+
+.ttamBrandMark {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+  font-size: 12px;
+}
+
+.ttamBrandText {
+  opacity: 0.92;
+}
+
+.ttamBrandTextStrong {
+  opacity: 0.92;
+  font-weight: 800;
+}
+
+.ttamTopRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ttamTopRightPill {
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ttamBody {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 760px;
+}
+
+.ttamSidebar {
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 12px 10px;
+}
+
+.ttamSidebarSectionTitle {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.56);
+  padding: 6px 8px 10px;
+  text-transform: none;
+}
+
+.ttamSidebarGroup {
+  margin-top: 6px;
+}
+
+.ttamSidebarGroupHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.82);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.ttamSidebarGroupIcon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.ttamSidebarGroupChevron {
+  margin-left: auto;
+  transform: rotate(90deg);
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.ttamSidebarGroupItems {
+  padding-left: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ttamSidebarItem {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  color: rgba(0, 0, 0, 0.82);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ttamSidebarItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.ttamSidebarItemActive {
+  background: rgba(46, 107, 246, 0.1);
+  color: #2e6bf6;
+}
+
+.ttamSidebarIcon {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+}
+
+.ttamSidebarLabel {
+  flex: 1;
+}
+
+.ttamContent {
+  padding: 14px;
+}
+
+.ttamMainGrid {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 14px;
+  align-items: start;
+}
+
+.ttamMainPanel {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.ttamPanelHeader {
+  padding: 16px 16px 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ttamPanelTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ttamPanelTitle {
+  font-size: 18px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.ttamPanelSubtitle {
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.ttamPanelHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.ttamSyncHint {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+}
+
+.ttamTabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px 0;
+}
+
+.ttamTab {
+  border: 0;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.52);
+  padding: 10px 0;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+}
+
+.ttamTabActive {
+  color: rgba(0, 0, 0, 0.9);
+  border-bottom-color: #2e6bf6;
+}
+
+.ttamPanelBody {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ttamSectionTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.ttamSectionTitleText {
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.ttamSectionTitleSub {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.ttamCard {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  padding: 14px;
+}
+
+.ttamCardTitle {
+  font-size: 14px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.ttamCardSub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+  line-height: 1.45;
+}
+
+.ttamInlineLink {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #2e6bf6;
+  text-decoration: none;
+}
+
+.ttamInlineLink:hover {
+  text-decoration: underline;
+}
+
+.ttamRowBetween {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.ttamStack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ttamTopGap {
+  margin-top: 12px;
+}
+
+.ttamMuted {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.ttamSubTabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ttamSubTab {
+  height: 32px;
+  padding: 0 12px;
+  border-radius: 10px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ttamSubTabActive {
+  background: rgba(46, 107, 246, 0.12);
+  color: #2e6bf6;
+}
+
+.ttamImportLink {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ttamImportLink:hover {
+  color: #2e6bf6;
+}
+
+.ttamForm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ttamFormLabelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ttamFormLabel {
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.82);
+}
+
+.ttamFormCounter {
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.44);
+  font-weight: 800;
+}
+
+.ttamTextarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 10px 12px;
+  font-size: 13px;
+  line-height: 1.45;
+  resize: vertical;
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.ttamTextarea:focus {
+  outline: none;
+  border-color: rgba(46, 107, 246, 0.5);
+  box-shadow: 0 0 0 3px rgba(46, 107, 246, 0.14);
+}
+
+.ttamPublishRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 4px;
+}
+
+.ttamButton {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 12px;
+  border: 0;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ttamButtonPrimary {
+  background: #2e6bf6;
+  color: #ffffff;
+}
+
+.ttamButtonPrimary:active {
+  background: #2559d3;
+}
+
+.ttamButtonGhost {
+  background: rgba(0, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.84);
+}
+
+.ttamButtonGhost:active {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ttamIconButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.12);
+  color: inherit;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ttamIconButton:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.ttamAccountPill {
+  height: 34px;
+  border-radius: 999px;
+  padding: 0 10px 0 6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.82);
+}
+
+.ttamAvatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: rgba(46, 107, 246, 0.14);
+  color: #2e6bf6;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.ttamAccountName {
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.ttamAccountChevron {
+  color: rgba(0, 0, 0, 0.5);
+  transform: rotate(90deg);
+}
+
+.ttamToggle {
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.16);
+  position: relative;
+  cursor: pointer;
+  padding: 0;
+}
+
+.ttamToggleSm {
+  width: 38px;
+  height: 22px;
+}
+
+.ttamToggleOn {
+  background: rgba(46, 107, 246, 0.9);
+}
+
+.ttamToggleDisabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ttamToggleThumb {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.16);
+  transition: transform 0.15s ease;
+}
+
+.ttamToggleSm .ttamToggleThumb {
+  width: 16px;
+  height: 16px;
+  top: 3px;
+  left: 3px;
+}
+
+.ttamToggleOn .ttamToggleThumb {
+  transform: translateX(18px);
+}
+
+.ttamToggleSm.ttamToggleOn .ttamToggleThumb {
+  transform: translateX(16px);
+}
+
+.ttamChip {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.04);
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.ttamMetaRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.ttamInfoGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 14px;
+}
+
+.ttamLabelRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ttamLabelRowLabel {
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.ttamLabelRowValue {
+  font-size: 13px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.86);
+  word-break: break-word;
+}
+
+.ttamSourcesGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ttamTable {
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.ttamTableHeader,
+.ttamTableRow {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(6, 1fr);
+  align-items: stretch;
+}
+
+.ttamTableHeader {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.ttamTableRow {
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.ttamTableCell {
+  padding: 12px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ttamTableCellCenter {
+  justify-content: center;
+}
+
+.ttamTableCellGrow {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+}
+
+.ttamTableHeaderPill {
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.74);
+  text-align: center;
+}
+
+.ttamTableProductName {
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.ttamTableProductSub {
+  font-size: 11px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.ttamDisabled {
+  opacity: 0.35;
+}
+
+.ttamTwoCol {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.ttamMemoryBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.ttamMemoryRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ttamMemoryKey {
+  font-size: 11px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.ttamMemoryVal {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.82);
+  line-height: 1.45;
+}
+
+.ttamPreviewPanel {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.ttamPreviewHeader {
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  font-size: 13px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.82);
+}
+
+.ttamPreviewBody {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ttamPreviewCard {
+  border-radius: 16px;
+  padding: 16px 14px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  text-align: center;
+}
+
+.ttamPreviewAvatar {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 10px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  display: grid;
+  place-items: center;
+}
+
+.ttamPreviewAvatarInner {
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  background: rgba(46, 107, 246, 0.12);
+  color: #2e6bf6;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+}
+
+.ttamPreviewName {
+  font-size: 15px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.9);
+}
+
+.ttamPreviewHandle {
+  margin-top: 2px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.56);
+  font-weight: 800;
+}
+
+.ttamPreviewMeta {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.52);
+  font-weight: 700;
+}
+
+.ttamPreviewComposer {
+  border-radius: 16px;
+  padding: 12px 12px 10px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+}
+
+.ttamComposerPlaceholder {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.44);
+  font-weight: 800;
+  padding: 10px 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.ttamComposerRow {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ttamSendButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.46);
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: not-allowed;
+}
+
+.ttamComposerHint {
+  margin-top: 8px;
+  font-size: 11px;
+  color: rgba(0, 0, 0, 0.46);
+  text-align: center;
+}
+
+.ttamEmptyState {
+  height: 520px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.02);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.ttamEmptyTitle {
+  font-size: 16px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.ttamEmptySub {
+  margin-top: 6px;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.56);
+  font-weight: 700;
+  text-align: center;
+}
+
+.ttamFooter {
+  width: 1320px;
+  max-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.ttamFooterLink {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.6);
+  text-decoration: none;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 999px;
+  padding: 8px 12px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.ttamFooterLink:hover {
+  color: #2e6bf6;
+}
+
+@media (max-width: 1100px) {
+  .ttamMainGrid {
+    grid-template-columns: 1fr;
+  }
+  .ttamPreviewPanel {
+    order: 2;
+  }
+  .ttamBody {
+    grid-template-columns: 1fr;
+  }
+  .ttamSidebar {
+    display: none;
+  }
+  .ttamSourcesGrid {
+    grid-template-columns: 1fr;
+  }
+  .ttamTwoCol {
+    grid-template-columns: 1fr;
+  }
+  .ttamInfoGrid {
+    grid-template-columns: 1fr;
+  }
+  .ttamTableHeader,
+  .ttamTableRow {
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+  }
+}

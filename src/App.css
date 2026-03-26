@@ -1163,7 +1163,401 @@
   flex: 1;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  background: #ffffff;
+  background: #f2f2f2;
+  position: relative;
+}
+
+.iabWebHeader {
+  background: #fff;
+  padding: 12px 12px 10px;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.iabBrandRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.iabBrand {
+  font-size: 18px;
+  font-weight: 900;
+  letter-spacing: 0.4px;
+  color: #0a3d91;
+}
+
+.iabBrandActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.iabIconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.iabIconBtn:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iabSearchWrap {
+  margin-top: 10px;
+}
+
+.iabSearch {
+  height: 40px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 14px;
+  background: #fff;
+}
+
+.iabSearchPlaceholder {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.34);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.iabSearchBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.iabSearchBtn:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iabChips {
+  margin-top: 10px;
+  display: flex;
+  gap: 8px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 2px;
+}
+
+.iabChips::-webkit-scrollbar {
+  display: none;
+}
+
+.iabChip {
+  flex: 0 0 auto;
+  height: 30px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #fff;
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.iabChip.active {
+  background: rgba(0, 0, 0, 0.06);
+  border-color: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.iabFeed {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.iabListingCard {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  overflow: hidden;
+}
+
+.iabListingTopRow {
+  padding: 12px 12px 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.iabPill {
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+}
+
+.iabMiniFav {
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.9);
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.iabMiniFav:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iabPhoto {
+  margin: 0 12px;
+  border-radius: 18px;
+  overflow: hidden;
+  position: relative;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.iabPhoto img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.iabDots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.iabDots .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.iabDots .dot.active {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.iabListingBody {
+  padding: 12px;
+}
+
+.iabListingTitle {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.iabListingMeta {
+  margin-top: 4px;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.iabListingShip {
+  margin-top: 6px;
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.iabListingPriceRow {
+  margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.iabMonthly {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.iabMonthlyLabel {
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.48);
+  margin-right: 4px;
+}
+
+.iabPrice {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.iabListingCtas {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+}
+
+.iabBtn {
+  flex: 1;
+  height: 42px;
+  border-radius: 21px;
+  border: 0;
+  font-size: 14px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.iabBtn.secondary {
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.iabBtn.primary {
+  background: #0a57ff;
+  color: #fff;
+}
+
+.iabBtn:active {
+  filter: brightness(0.95);
+}
+
+.iabSectionTitle {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.86);
+  padding: 8px 4px 0;
+}
+
+.iabGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.iabSmallCard {
+  background: #fff;
+  border-radius: 18px;
+  padding: 10px;
+  position: relative;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+}
+
+.iabTag {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  height: 22px;
+  padding: 0 10px;
+  border-radius: 11px;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.72);
+  font-size: 12px;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+}
+
+.iabTag.green {
+  background: rgba(18, 155, 71, 0.16);
+  color: #0b7a33;
+}
+
+.iabSmallPhoto {
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.iabSmallPhoto img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  display: block;
+}
+
+.iabChatFab {
+  position: absolute;
+  right: 18px;
+  bottom: 74px;
+  width: 54px;
+  height: 54px;
+  border-radius: 27px;
+  border: 0;
+  background: #0a57ff;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.22),
+    0 2px 8px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+}
+
+.iabChatFab:active {
+  filter: brightness(0.95);
+}
+
+.iabBrowserBar {
+  height: 44px;
+  background: rgba(255, 255, 255, 0.92);
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  display: grid;
+  grid-template-columns: 52px 52px 1fr 52px;
+  align-items: center;
+  padding: 0 4px;
+}
+
+.iabBrowserBtn {
+  width: 52px;
+  height: 44px;
+  border-radius: 0;
+  border: 0;
+  background: transparent;
+  display: grid;
+  place-items: center;
+  color: rgba(0, 0, 0, 0.72);
+  cursor: pointer;
+}
+
+.iabBrowserBtn:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iabBrowserUrl {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.48);
 }
 
 .iabScreenshot {

@@ -55,6 +55,8 @@ function App() {
   const [isContactPanelVisible, setIsContactPanelVisible] = useState(true)
   const [modal, setModal] = useState<Modal>('none')
   const [isMoreOpen, setIsMoreOpen] = useState(false)
+  const [iabIsFavorite, setIabIsFavorite] = useState(false)
+  const [iabActiveChip, setIabActiveChip] = useState<string>('Porsche Macan')
   const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   const catalogPrice = useMemo(() => {
@@ -1090,11 +1092,210 @@ function App() {
             </div>
 
             <div className="iabContent" aria-label="Web view content">
-              <img
-                className="iabScreenshot"
-                src={figmaAsset('iab-screenshot-4d1182.png')}
-                alt=""
-              />
+              <div className="iabWebHeader">
+                <div className="iabBrandRow">
+                  <div className="iabBrand">CARMAX</div>
+                  <div className="iabBrandActions">
+                    <button className="iabIconBtn" type="button" aria-label="Location">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                        <path
+                          d="M12 22s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M12 13.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      className="iabIconBtn"
+                      type="button"
+                      aria-label="Favorite"
+                      onClick={() => setIabIsFavorite((v) => !v)}
+                    >
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                        <path
+                          d="M12 21s-7-4.5-9.2-8.8C1 9 3 6 6.5 6c1.9 0 3.3 1 3.9 2 0 0 .7-2 3.6-2C17.5 6 19.5 9 21.2 12.2 19 16.5 12 21 12 21Z"
+                          fill={iabIsFavorite ? 'currentColor' : 'none'}
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                        />
+                      </svg>
+                    </button>
+                    <button className="iabIconBtn" type="button" aria-label="Account">
+                      <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                        <path
+                          d="M12 12a4.2 4.2 0 1 0-4.2-4.2A4.2 4.2 0 0 0 12 12Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M4 21c1.6-4.1 5-6.2 8-6.2S18.4 16.9 20 21"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="iabSearchWrap">
+                  <div className="iabSearch">
+                    <div className="iabSearchPlaceholder">What kind of car are you looking for?</div>
+                    <button className="iabSearchBtn" type="button" aria-label="Search">
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                        <path
+                          d="M10.8 18.1a7.3 7.3 0 1 0 0-14.6 7.3 7.3 0 0 0 0 14.6Z"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                        />
+                        <path
+                          d="M20.5 20.5l-4.2-4.2"
+                          stroke="currentColor"
+                          strokeWidth="1.8"
+                          strokeLinecap="round"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="iabChips" aria-label="Filters">
+                  {['Porsche Macan', 'SUVs', '2018 and newer', 'Less than $45k'].map((chip) => (
+                    <button
+                      key={chip}
+                      type="button"
+                      className={chip === iabActiveChip ? 'iabChip active' : 'iabChip'}
+                      onClick={() => setIabActiveChip(chip)}
+                    >
+                      {chip}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="iabFeed">
+                <div className="iabListingCard">
+                  <div className="iabListingTopRow">
+                    <div className="iabPill">New for you</div>
+                    <button
+                      className="iabMiniFav"
+                      type="button"
+                      aria-label="Favorite listing"
+                      onClick={() => setIabIsFavorite((v) => !v)}
+                    >
+                      <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                        <path
+                          d="M12 21s-7-4.5-9.2-8.8C1 9 3 6 6.5 6c1.9 0 3.3 1 3.9 2 0 0 .7-2 3.6-2C17.5 6 19.5 9 21.2 12.2 19 16.5 12 21 12 21Z"
+                          fill={iabIsFavorite ? 'rgba(0,0,0,0.16)' : 'none'}
+                          stroke="currentColor"
+                          strokeWidth="1.6"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+
+                  <div className="iabPhoto">
+                    <img src={figmaAsset('product-thumb-2.png')} alt="" />
+                    <div className="iabDots" aria-hidden="true">
+                      <span className="dot active" />
+                      <span className="dot" />
+                      <span className="dot" />
+                    </div>
+                  </div>
+
+                  <div className="iabListingBody">
+                    <div className="iabListingTitle">2018 Porsche Macan</div>
+                    <div className="iabListingMeta">S · 18K mi</div>
+                    <div className="iabListingShip">$1399 Shipping | Est. arrival 2/19-3/2</div>
+                    <div className="iabListingPriceRow">
+                      <div className="iabMonthly">
+                        <span className="iabMonthlyLabel">Est.</span> $695 mo
+                      </div>
+                      <div className="iabPrice">$40,998*</div>
+                    </div>
+                    <div className="iabListingCtas">
+                      <button className="iabBtn secondary" type="button">
+                        View similar
+                      </button>
+                      <button className="iabBtn primary" type="button">
+                        Get more details
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="iabSectionTitle">Same model</div>
+                <div className="iabGrid">
+                  {['Price drop', 'New for you'].map((tag) => (
+                    <div key={tag} className="iabSmallCard">
+                      <div className={tag === 'Price drop' ? 'iabTag green' : 'iabTag'}>
+                        {tag}
+                      </div>
+                      <div className="iabSmallPhoto">
+                        <img src={figmaAsset('product-thumb-1.png')} alt="" />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <button className="iabChatFab" type="button" aria-label="Open chat">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none">
+                  <path
+                    d="M20 15.5c0 1.4-1.2 2.5-2.6 2.5H8l-4 3V5.5C4 4.1 5.2 3 6.6 3h10.8C18.8 3 20 4.1 20 5.5v10Z"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <div className="iabBrowserBar" aria-label="Browser controls">
+              <button className="iabBrowserBtn" type="button" aria-label="Back">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M14.5 6.5 9 12l5.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button className="iabBrowserBtn" type="button" aria-label="Forward">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M9.5 6.5 15 12l-5.5 5.5"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <div className="iabBrowserUrl">carmax.com</div>
+              <button className="iabBrowserBtn" type="button" aria-label="More">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none">
+                  <path
+                    d="M12 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M19 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                    fill="currentColor"
+                  />
+                  <path
+                    d="M5 12.5a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </button>
             </div>
 
             <div className="iabHomeIndicator" aria-hidden="true">

@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => ({
       input: {
         main: resolve(__dirname, 'index.html'),
         llm: resolve(__dirname, 'llm/index.html'),
+        ttam: resolve(__dirname, 'ttam/index.html'),
       },
     },
   },
