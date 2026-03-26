@@ -4,6 +4,9 @@ import './App.css'
 type Modal = 'none' | 'report' | 'ad' | 'profile' | 'businessInfo' | 'iab'
 
 function App() {
+  const baseUrl = import.meta.env.BASE_URL
+  const figmaAsset = (fileName: string) => `${baseUrl}assets/figma/${fileName}`
+
   const [draft, setDraft] = useState('')
   const [sentMessages, setSentMessages] = useState<string[]>([])
   const [hasSharedContact, setHasSharedContact] = useState(false)
@@ -71,19 +74,19 @@ function App() {
             <div className="statusTime">8:00</div>
             <div className="statusIcons">
               <div className="statusCellular" aria-hidden="true">
-                <img src="/assets/figma/icon-cellular-1.svg" alt="" />
-                <img src="/assets/figma/icon-cellular-2.svg" alt="" />
-                <img src="/assets/figma/icon-cellular-3.svg" alt="" />
-                <img src="/assets/figma/icon-cellular-4.svg" alt="" />
+                <img src={figmaAsset('icon-cellular-1.svg')} alt="" />
+                <img src={figmaAsset('icon-cellular-2.svg')} alt="" />
+                <img src={figmaAsset('icon-cellular-3.svg')} alt="" />
+                <img src={figmaAsset('icon-cellular-4.svg')} alt="" />
               </div>
               <div className="statusWifi" aria-hidden="true">
-                <img src="/assets/figma/icon-wifi-1.svg" alt="" />
-                <img src="/assets/figma/icon-wifi-2.svg" alt="" />
-                <img src="/assets/figma/icon-wifi-3.svg" alt="" />
+                <img src={figmaAsset('icon-wifi-1.svg')} alt="" />
+                <img src={figmaAsset('icon-wifi-2.svg')} alt="" />
+                <img src={figmaAsset('icon-wifi-3.svg')} alt="" />
               </div>
               <img
                 className="statusBattery"
-                src="/assets/figma/icon-battery.svg"
+                src={figmaAsset('icon-battery.svg')}
                 alt=""
               />
             </div>
@@ -97,14 +100,14 @@ function App() {
                   aria-label="Back"
                   onClick={() => setModal('none')}
                 >
-                  <img src="/assets/figma/icon-chevron-left.svg" alt="" />
+                  <img src={figmaAsset('icon-chevron-left.svg')} alt="" />
                 </button>
                 <button
                   className="avatarButton"
                   aria-label="Open profile"
                   onClick={() => setModal('profile')}
                 >
-                  <img src="/assets/figma/avatar.png" alt="" />
+                  <img src={figmaAsset('avatar.png')} alt="" />
                 </button>
               </div>
 
@@ -117,7 +120,7 @@ function App() {
                   <div className="chatTitle">Car Max</div>
                   <img
                     className="chatVerified"
-                    src="/assets/figma/icon-tick-circle.svg"
+                    src={figmaAsset('icon-tick-circle.svg')}
                     alt=""
                   />
                 </div>
@@ -130,7 +133,7 @@ function App() {
                   aria-label="Report"
                   onClick={() => setModal('report')}
                 >
-                  <img src="/assets/figma/icon-flag.svg" alt="" />
+                  <img src={figmaAsset('icon-flag.svg')} alt="" />
                 </button>
                 <button
                   className="iconButton navIconButton"
@@ -138,7 +141,7 @@ function App() {
                   aria-expanded={isMoreOpen}
                   onClick={() => setIsMoreOpen((v) => !v)}
                 >
-                  <img src="/assets/figma/icon-ellipsis.svg" alt="" />
+                  <img src={figmaAsset('icon-ellipsis.svg')} alt="" />
                 </button>
               </div>
             </div>
@@ -180,13 +183,13 @@ function App() {
 
         <div className="messages" aria-label="Messages">
           <div className="headerCard">
-            <img className="headerAvatar" src="/assets/figma/avatar.png" alt="" />
+            <img className="headerAvatar" src={figmaAsset('avatar.png')} alt="" />
             <div className="headerName">Car Max</div>
             <div className="headerIntro">128 videos · 1.1M followers</div>
             <div className="headerReply">
               <img
                 className="headerReplyIcon"
-                src="/assets/figma/icon-timer-moving.svg"
+                src={figmaAsset('icon-timer-moving.svg')}
                 alt=""
               />
               <div className="headerReplyText">Typically replies in 10 minutes</div>
@@ -233,7 +236,7 @@ function App() {
               >
                 <img
                   className="productThumb"
-                  src="/assets/figma/product-thumb-1.png"
+                  src={figmaAsset('product-thumb-1.png')}
                   alt=""
                 />
                 <div className="productMeta">
@@ -293,7 +296,7 @@ function App() {
                 aria-label="Camera"
                 onClick={() => {}}
               >
-                <img src="/assets/figma/icon-camera.svg" alt="" />
+                <img src={figmaAsset('icon-camera.svg')} alt="" />
               </button>
               <input
                 className="textInput"
@@ -311,12 +314,12 @@ function App() {
                 aria-label="Open sticker and photo"
                 onClick={() => {}}
               >
-                <img src="/assets/figma/icon-cta-chat.svg" alt="" />
+                <img src={figmaAsset('icon-cta-chat.svg')} alt="" />
               </button>
             </div>
           </div>
           <div className="homeIndicator" aria-hidden="true">
-            <img src="/assets/figma/home-indicator.svg" alt="" />
+            <img src={figmaAsset('home-indicator.svg')} alt="" />
           </div>
         </div>
 
@@ -326,27 +329,31 @@ function App() {
               <div className="statusTime">8:00</div>
               <div className="statusIcons">
                 <div className="statusCellular" aria-hidden="true">
-                  <img src="/assets/figma/icon-cellular-1.svg" alt="" />
-                  <img src="/assets/figma/icon-cellular-2.svg" alt="" />
-                  <img src="/assets/figma/icon-cellular-3.svg" alt="" />
-                  <img src="/assets/figma/icon-cellular-4.svg" alt="" />
+                  <img src={figmaAsset('icon-cellular-1.svg')} alt="" />
+                  <img src={figmaAsset('icon-cellular-2.svg')} alt="" />
+                  <img src={figmaAsset('icon-cellular-3.svg')} alt="" />
+                  <img src={figmaAsset('icon-cellular-4.svg')} alt="" />
                 </div>
                 <div className="statusWifi" aria-hidden="true">
-                  <img src="/assets/figma/icon-wifi-1.svg" alt="" />
-                  <img src="/assets/figma/icon-wifi-2.svg" alt="" />
-                  <img src="/assets/figma/icon-wifi-3.svg" alt="" />
+                  <img src={figmaAsset('icon-wifi-1.svg')} alt="" />
+                  <img src={figmaAsset('icon-wifi-2.svg')} alt="" />
+                  <img src={figmaAsset('icon-wifi-3.svg')} alt="" />
                 </div>
                 <img
                   className="statusBattery"
-                  src="/assets/figma/icon-battery.svg"
+                  src={figmaAsset('icon-battery.svg')}
                   alt=""
                 />
               </div>
             </div>
 
             <div className="iabNavbar">
-              <button className="iabClose" aria-label="Close web view" onClick={() => setModal('none')}>
-                <img src="/assets/figma/icon-x-mark.svg" alt="" />
+              <button
+                className="iabClose"
+                aria-label="Close web view"
+                onClick={() => setModal('none')}
+              >
+                <img src={figmaAsset('icon-x-mark.svg')} alt="" />
               </button>
               <div className="iabTitleArea" aria-label="Web view title">
                 <div className="iabTitle">Carmax</div>
@@ -357,20 +364,20 @@ function App() {
                 aria-label="More web view actions"
                 onClick={() => {}}
               >
-                <img src="/assets/figma/icon-ellipsis.svg" alt="" />
+                <img src={figmaAsset('icon-ellipsis.svg')} alt="" />
               </button>
             </div>
 
             <div className="iabContent" aria-label="Web view content">
               <img
                 className="iabScreenshot"
-                src="/assets/figma/iab-screenshot-4d1182.png"
+                src={figmaAsset('iab-screenshot-4d1182.png')}
                 alt=""
               />
             </div>
 
             <div className="iabHomeIndicator" aria-hidden="true">
-              <img src="/assets/figma/home-indicator.svg" alt="" />
+              <img src={figmaAsset('home-indicator.svg')} alt="" />
             </div>
           </div>
         )}
