@@ -281,7 +281,7 @@ function App() {
                   aria-label="Dismiss"
                   onClick={() => setIsContactPanelVisible(false)}
                 >
-                  <img src="/assets/figma/icon-x-mark.svg" alt="" />
+                  <img src={figmaAsset('icon-x-mark.svg')} alt="" />
                 </button>
               </div>
               <button className="contactChip" onClick={shareContact}>
