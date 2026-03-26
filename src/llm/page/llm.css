@@ -1,0 +1,182 @@
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #dbdbdb;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display',
+    system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  color: rgba(0, 0, 0, 0.86);
+}
+
+.llmRoot {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.llmShell {
+  width: 920px;
+  max-width: 100%;
+  background: #f8f8f8;
+  border-radius: 20px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.llmHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: #f5f5f5;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.llmTitle {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.llmLink {
+  font-size: 13px;
+  color: #2e6bf6;
+  text-decoration: none;
+}
+
+.llmLink:hover {
+  text-decoration: underline;
+}
+
+.llmConfig {
+  padding: 14px 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  background: #ffffff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.llmField {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.llmLabel {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.llmInput {
+  height: 36px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0 12px;
+  font-size: 13px;
+  outline: none;
+}
+
+.llmHint {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.48);
+  line-height: 16px;
+}
+
+.llmError {
+  grid-column: 1 / -1;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(225, 5, 67, 0.12);
+  color: #e10543;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.llmChat {
+  display: flex;
+  flex-direction: column;
+  height: 560px;
+}
+
+.llmMessages {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.llmMsgRow {
+  display: flex;
+}
+
+.llmMsgRow.left {
+  justify-content: flex-start;
+}
+
+.llmMsgRow.right {
+  justify-content: flex-end;
+}
+
+.llmBubble {
+  max-width: 640px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: pre-wrap;
+}
+
+.llmBubble.assistant {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+}
+
+.llmBubble.user {
+  background: #00a2c9;
+  color: #fff;
+  border-radius: 18px 18px 6px 18px;
+}
+
+.llmComposer {
+  display: flex;
+  gap: 10px;
+  padding: 12px 18px 16px;
+  background: #ffffff;
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.llmComposerInput {
+  flex: 1;
+  height: 40px;
+  border-radius: 14px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0 12px;
+  font-size: 14px;
+  outline: none;
+}
+
+.llmSend {
+  width: 96px;
+  height: 40px;
+  border-radius: 14px;
+  border: 0;
+  background: #00a2c9;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.llmSend:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
