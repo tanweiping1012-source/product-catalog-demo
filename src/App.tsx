@@ -219,9 +219,11 @@ function App() {
     const wantsWebsite =
       /website|open.*site|carmax\.com/.test(normalized) || /官网|官網|打开网站|打開網站/.test(input)
     const wantsStoreAddress =
-      /store address|dealership address|where.*store|where.*dealership|store location|where are you|location/.test(
-        normalized,
-      ) ||
+      /(store|dealership).*(address|location)/.test(normalized) ||
+      /(address|location).*(store|dealership)/.test(normalized) ||
+      /where.*(store|dealership)|where are you/.test(normalized) ||
+      normalizedNoSpace.includes('storeaddress') ||
+      normalizedNoSpace.includes('dealershipaddress') ||
       /门店地址|門店地址|店铺地址|店鋪地址|地址在哪里|地址在哪|门店在哪|門店在哪|在哪儿|在哪裡|位置|怎么去|怎麼去/.test(
         input,
       )
@@ -261,6 +263,18 @@ function App() {
     }
 
     if (wantsMerchantInfo) {
+      const mentionsAddress =
+        /(address|location|where|map)/.test(normalized) ||
+        /地址|位置|怎么去|怎麼去|在哪儿|在哪裡/.test(inputNoSpace)
+      if (mentionsAddress) {
+        return {
+          text: zh
+            ? '门店地址：Demo location · United States。你也可以直接在这里预约一个试驾时间（演示）。'
+            : 'Store address: Demo location · United States. You can also book a test drive time here (demo).',
+          extras: [{ role: 'assistant', kind: 'scheduleCard', schedule: createScheduleCard() }],
+        }
+      }
+
       const card: MerchantCard = {
         name: 'CarMax',
         subtitle: 'Business chat',
