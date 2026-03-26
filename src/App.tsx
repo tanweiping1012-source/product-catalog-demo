@@ -398,6 +398,7 @@ function App() {
   const send = () => {
     const value = draft.trim()
     if (!value) return
+    setHasDismissedContactPanel(true)
     const id = `${Date.now()}-${buildId.current++}`
     setChatMessages((prev) => [...prev, { id, role: 'user', kind: 'text', text: value }])
     setDraft('')
@@ -749,6 +750,7 @@ function App() {
                     if (!m.lead) return
                     if (!canSubmit) return
 
+                    setHasDismissedContactPanel(true)
                     const id = `${Date.now()}-${buildId.current++}`
                     const parts: string[] = []
                     if (m.lead.values.phone) parts.push(String(m.lead.values.phone))
@@ -858,6 +860,7 @@ function App() {
 
                   const onConfirm = () => {
                     if (!card.selectedDateKey || !card.selectedTimeKey) return
+                    setHasDismissedContactPanel(true)
                     const id = `${Date.now()}-${buildId.current++}`
                     const summary = zh
                       ? `试驾预约：${card.selectedDateKey} · ${card.selectedTimeKey}`
