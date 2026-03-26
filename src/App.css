@@ -1,0 +1,798 @@
+.appRoot {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.phone {
+  width: 390px;
+  height: 844px;
+  border-radius: 44px;
+  background: #f8f8f8;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  font-family: 'TikTok Sans', 'TikTok Text', -apple-system, BlinkMacSystemFont,
+    'SF Pro Text', 'SF Pro Display', system-ui, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+}
+
+.phone button:focus {
+  outline: none;
+}
+
+.phone button:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.24);
+  outline-offset: 2px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  background: rgba(0, 0, 0, 0.08);
+  border: 0;
+  padding: 0;
+}
+
+.navBar {
+  z-index: 20;
+  position: relative;
+}
+
+.statusBar {
+  height: 47px;
+  position: relative;
+  background: #f8f8f8;
+}
+
+.statusTime {
+  position: absolute;
+  left: 35px;
+  top: 16px;
+  width: 58px;
+  height: 22px;
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: -0.4px;
+  color: #000;
+  text-align: center;
+}
+
+.statusIcons {
+  position: absolute;
+  right: 26px;
+  top: 19px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statusCellular {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 13px;
+}
+
+.statusCellular img {
+  display: block;
+  height: 13px;
+  width: auto;
+}
+
+.statusWifi {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 13px;
+}
+
+.statusWifi img {
+  display: block;
+  height: 13px;
+  width: auto;
+}
+
+.statusBattery {
+  display: block;
+  height: 14px;
+  width: auto;
+}
+
+.chatNavBar {
+  height: 56px;
+  background: #f5f5f5;
+  position: relative;
+}
+
+.chatNavRow {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+}
+
+.chatNavHairline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  transform: scaleY(0.5);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.chatNavLeft,
+.chatNavRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.iconButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.iconButton:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iconButton img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.navIconButton {
+  height: 56px;
+  width: 44px;
+  border-radius: 0;
+}
+
+.navBackButton {
+  width: 52px;
+}
+
+.avatarButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 0;
+  padding: 0;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.avatarButton img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.chatNavCenter {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  min-width: 198px;
+}
+
+.chatTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chatTitle {
+  font-size: 17px;
+  line-height: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.chatVerified {
+  width: 16px;
+  height: 16px;
+}
+
+.chatSubtitle {
+  margin-top: 2px;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.popover {
+  position: absolute;
+  z-index: 40;
+  top: 66px;
+  right: 12px;
+  width: 172px;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 14px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.24),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+}
+
+.popoverItem {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+  line-height: 18px;
+  color: #111;
+  text-align: left;
+  cursor: pointer;
+}
+
+.popoverItem:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.popoverItem.danger {
+  color: #d9283a;
+}
+
+.messages {
+  flex: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.headerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding-bottom: 8px;
+}
+
+.headerAvatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08) inset;
+  margin-bottom: 12px;
+}
+
+.headerName {
+  font-size: 20px;
+  line-height: 25px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  color: #202020;
+}
+
+.headerIntro {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.headerReply {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.headerReplyIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.headerReplyText {
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.systemStack {
+  width: 392px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.systemTimestamp,
+.systemInfo {
+  width: 392px;
+  padding: 8px 48px 4px;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.16px;
+  color: rgba(0, 0, 0, 0.48);
+  text-align: center;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.inlineLink {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  color: #2e6bf6;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inlineLink:hover {
+  text-decoration: underline;
+}
+
+.receivedStack {
+  width: 390px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.receivedBubble {
+  width: 290px;
+  background: #ffffff;
+  border-radius: 20px 20px 20px 5px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+}
+
+.receivedText {
+  font-size: 16px;
+  line-height: 20.8px;
+  letter-spacing: 0.03px;
+  color: #000;
+}
+
+.productCard {
+  border: 0;
+  background: #f8f8f8;
+  border-radius: 8px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.productCard:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.productThumb {
+  width: 72px;
+  height: 72px;
+  border-radius: 8px;
+  object-fit: cover;
+  display: block;
+  background: rgba(0, 0, 0, 0.03);
+  flex: 0 0 auto;
+}
+
+.productMeta {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0;
+}
+
+.productTitle {
+  font-size: 12px;
+  line-height: 15.6px;
+  color: #000;
+}
+
+.productDesc {
+  font-size: 12px;
+  line-height: 15.6px;
+  color: rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.productPrice {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  color: #000;
+}
+
+.productCurrency {
+  font-size: 12px;
+  line-height: 15.6px;
+  font-weight: 600;
+}
+
+.productNum {
+  font-size: 15px;
+  line-height: 19.5px;
+  font-weight: 600;
+}
+
+.productDecimal {
+  font-size: 11px;
+  line-height: 14.3px;
+  font-weight: 600;
+}
+
+.sentStack {
+  width: 390px;
+  padding: 0 12px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.contactPanel {
+  background: #f8f8f8;
+  padding: 8px 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contactPrompt {
+  height: 28px;
+  background: transparent;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.contactPromptText {
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.contactClose {
+  width: 28px;
+  height: 28px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  opacity: 0.34;
+}
+
+.contactClose:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.contactClose img {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.contactChip {
+  width: 100%;
+  height: 44px;
+  border-radius: 22px;
+  border: 0;
+  background: #eeeeee;
+  color: rgba(0, 0, 0, 0.86);
+  font-size: 15px;
+  line-height: 19px;
+  padding: 0 16px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.contactChip:active {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.sentBubble {
+  max-width: 280px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  color: rgba(0, 0, 0, 0.86);
+  font-size: 15px;
+  line-height: 19px;
+}
+
+.composer {
+  display: flex;
+  flex-direction: column;
+  background: #f8f8f8;
+}
+
+.composerBar {
+  background: #ffffff;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.composerPill {
+  width: 100%;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06) inset;
+  padding: 2px 12px 2px 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cameraButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.cameraButton:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.cameraButton img {
+  width: 34px;
+  height: 34px;
+  display: block;
+}
+
+.textInput {
+  border: 0;
+  outline: 0;
+  width: 100%;
+  font-size: 17px;
+  line-height: 22px;
+  color: rgba(0, 0, 0, 0.86);
+  background: transparent;
+}
+
+.textInput::placeholder {
+  color: rgba(0, 0, 0, 0.34);
+}
+
+.ctaButton {
+  width: 60px;
+  height: 34px;
+  border-radius: 17px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.ctaButton:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.ctaButton img {
+  height: 26px;
+  width: auto;
+}
+
+.homeIndicator {
+  height: 34px;
+  display: grid;
+  place-items: center;
+}
+
+.homeIndicator img {
+  width: 140px;
+  height: 5px;
+  display: block;
+}
+
+.toast {
+  position: absolute;
+  z-index: 50;
+  left: 50%;
+  bottom: 108px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 13px;
+  line-height: 16px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  user-select: none;
+}
+
+.iabScreen {
+  position: absolute;
+  inset: 0;
+  z-index: 60;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.iabStatusBar {
+  height: 47px;
+  position: relative;
+}
+
+.iabNavbar {
+  height: 44px;
+  display: grid;
+  grid-template-columns: 52px 1fr 52px;
+  align-items: center;
+  padding: 0 4px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.iabClose,
+.iabMore {
+  width: 52px;
+  height: 44px;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.iabClose:active,
+.iabMore:active {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.iabClose img,
+.iabMore img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.iabTitleArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.iabTitle {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 600;
+  color: #000;
+}
+
+.iabSubtitle {
+  font-size: 11px;
+  line-height: 14px;
+  color: rgba(0, 0, 0, 0.48);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.iabContent {
+  flex: 1;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  background: #ffffff;
+}
+
+.iabScreenshot {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.iabHomeIndicator {
+  height: 34px;
+  display: grid;
+  place-items: center;
+  background: #ffffff;
+}
+
+.iabHomeIndicator img {
+  width: 140px;
+  height: 5px;
+  display: block;
+}
+
+.modal {
+  position: absolute;
+  z-index: 45;
+  left: 20px;
+  right: 20px;
+  top: 140px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.24),
+    0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.modalTitle {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+  color: #111;
+}
+
+.modalBody {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 18px;
+  color: rgba(0, 0, 0, 0.72);
+}
+
+.modalCta {
+  margin-top: 14px;
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  border: 0;
+  background: rgba(0, 0, 0, 0.06);
+  color: #111;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.modalCta:active {
+  background: rgba(0, 0, 0, 0.1);
+}
