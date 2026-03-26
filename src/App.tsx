@@ -75,6 +75,8 @@ function App() {
 
   const reply = (input: string): ReplyResult => {
     const normalized = input.trim().toLowerCase()
+    const normalizedNoSpace = normalized.replace(/\s+/g, '')
+    const inputNoSpace = input.replace(/\s+/g, '')
 
     const wantsPrice =
       /price|cost|\$|how much/.test(normalized) || /价格|多少钱|多少錢|报价|報價/.test(input)
@@ -98,7 +100,9 @@ function App() {
       ) ||
       /商家|店铺|店鋪|门店|門店|车商|車商|公司|关于你|你是谁|你是誰|联系方式|聯繫方式|电话|電話|地址|营业时间|營業時間|位置/.test(
         input,
-      )
+      ) ||
+      normalizedNoSpace.includes('carmax') ||
+      /营业时间|營業時間|联系方式|聯繫方式|门店|門店|店铺|店鋪|地址|电话|電話/.test(inputNoSpace)
 
     const zh = isChinese(input)
 
