@@ -377,6 +377,8 @@
 .messageRow {
   display: flex;
   width: 100%;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .messageRow.left {
@@ -385,6 +387,29 @@
 
 .messageRow.right {
   justify-content: flex-end;
+}
+
+.chatAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  object-fit: cover;
+  display: block;
+  flex: 0 0 auto;
+}
+
+.userAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.72);
+  display: grid;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 800;
+  flex: 0 0 auto;
+  user-select: none;
 }
 
 .assistantBubble {

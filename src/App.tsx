@@ -655,6 +655,7 @@ function App() {
                 if (m.kind === 'merchantCard' && m.role === 'assistant' && m.merchant) {
                   return (
                     <div key={m.id} className="messageRow left">
+                      <img className="chatAvatar" src={figmaAsset('avatar.png')} alt="" />
                       <div className="merchantCard" role="group" aria-label="Merchant info card">
                         <div className="merchantHeader">
                           <img className="merchantLogo" src={figmaAsset('avatar.png')} alt="" />
@@ -770,6 +771,7 @@ function App() {
 
                   return (
                     <div key={m.id} className="messageRow left">
+                      <img className="chatAvatar" src={figmaAsset('avatar.png')} alt="" />
                       <div className="leadCard" role="group" aria-label="Lead capture card">
                         <div className="leadTitle">Contact information to collect</div>
                         <div className="leadMeta">
@@ -874,6 +876,7 @@ function App() {
 
                   return (
                     <div key={m.id} className="messageRow left">
+                      <img className="chatAvatar" src={figmaAsset('avatar.png')} alt="" />
                       <div className="scheduleCard" role="group" aria-label="Test drive scheduling card">
                         <div className="scheduleTitle">
                           {zh ? '预约试驾' : 'Schedule a test drive'}
@@ -973,6 +976,7 @@ function App() {
 
                 return (
                   <div key={m.id} className={isUser ? 'messageRow right' : 'messageRow left'}>
+                    {!isUser && <img className="chatAvatar" src={figmaAsset('avatar.png')} alt="" />}
                     <div className={bubbleClass}>
                       {m.kind === 'typing' ? (
                         <div className="typingDots" aria-label="Typing">
@@ -984,6 +988,7 @@ function App() {
                         m.text
                       )}
                     </div>
+                    {isUser && <div className="userAvatar" aria-hidden="true">U</div>}
                   </div>
                 )
               })}
@@ -1200,7 +1205,7 @@ function App() {
                   </div>
 
                   <div className="iabPhoto">
-                    <img src={figmaAsset('product-thumb-2.png')} alt="" />
+                    <img src={figmaAsset('product-thumb-1.png')} alt="" />
                     <div className="iabDots" aria-hidden="true">
                       <span className="dot active" />
                       <span className="dot" />
