@@ -50,9 +50,11 @@ function App() {
     [],
   )
 
+  const lastMessageId = chatMessages.length > 0 ? chatMessages[chatMessages.length - 1].id : null
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
-  }, [chatMessages.length, isContactPanelVisible, modal])
+  }, [lastMessageId, isContactPanelVisible, modal])
 
   const isChinese = (s: string) => /[\u4e00-\u9fff]/.test(s)
 
